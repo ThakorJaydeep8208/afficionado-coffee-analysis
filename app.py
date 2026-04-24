@@ -15,14 +15,22 @@ st.markdown("---")
 # --- Load Data ---
 @st.cache_data
 def load_data():
-   df = pd.read_csv("Afficionado Coffee Roasters.xlsx - Transactions.csv")
-    df['transaction_time'] = pd.to_datetime(df['transaction_time'], format='%H:%M:%S')
+    df = pd.read_csv("Afficionado Coffee Roasters.xlsx - Transactions.csv")
+    df['transaction_time'] = pd.to_datetime(df['transaction_time'], format='%H:%M:%S', errors='coerce')
     df['hour'] = df['transaction_time'].dt.hour
     df['revenue'] = df['transaction_qty'] * df['unit_price']
-    np.random.seed(42)
-    date_range = pd.date_range(start='2025-01-01', end='2025-06-30', freq='D')
-    df['transaction_date'] = np.random.choice(date_range, size=len(df))
-    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+
+    def time_bucket(hour):
+        if 6 <= hour <= 11:
+            return 'Morning (6-11)'
+        elif 12 <= hour <= 16:
+            return 'Afternoon (12-16)'
+        elif 17 <= hour <= 21:
+            return 'Evening (17-21)'
+        else:
+            return 'Late/Early (22-5)'
+
+    df['time_bucket'] = df['hour'].apply(time_bucket)
     return df
 
 df = load_data()

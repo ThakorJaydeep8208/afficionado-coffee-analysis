@@ -132,4 +132,4 @@ fig6.update_layout(yaxis={'categoryorder': 'total ascending'})
 st.plotly_chart(fig6, use_container_width=True)
 
 st.markdown("---")
-st.caption("📊 Dashboard built for Afficionado Coffee Roasters | Data Analyst Project 2025")
+st.caption("📊 Dashboard built for Afficionado Coffee Roasters | Data Analyst Project 2026")

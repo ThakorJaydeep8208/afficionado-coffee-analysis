@@ -15,7 +15,7 @@ st.markdown("---")
 # --- Load Data ---
 @st.cache_data
 def load_data():
-    df = pd.read_csv(r"D:\project\Afficionado Coffee Roasters.xlsx - Transactions.csv")
+   df = pd.read_csv("Afficionado Coffee Roasters.xlsx - Transactions.csv")
     df['transaction_time'] = pd.to_datetime(df['transaction_time'], format='%H:%M:%S')
     df['hour'] = df['transaction_time'].dt.hour
     df['revenue'] = df['transaction_qty'] * df['unit_price']
